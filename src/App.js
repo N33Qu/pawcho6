@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-export const ver = process.env.REACT_APP_VERSION;
+export const ver = process.env.APP_VER;
 
 function App() {
   const getHostname = () => {
@@ -9,7 +9,7 @@ function App() {
   };
 
   const getAddress = () => {
-    return window.location.clientId;
+    return window.location.origin;
   };
 
   return (
