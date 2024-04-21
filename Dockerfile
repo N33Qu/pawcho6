@@ -7,9 +7,9 @@ RUN apk update && apk upgrade
 RUN apk add --no-cache npm nodejs openssh-client git
 
 RUN mkdir -p /clonedRepo
-RUN --mount=type=secret,id=ghlab_access.pub \
+RUN --mount=type=secret,id=ghlab_access \
     mkdir -p ~/.ssh && \
-    cp /run/secrets/ghlab_access.pub ~/.ssh/id_rsa && \
+    cp /run/secrets/ghlab_access ~/.ssh/id_rsa && \
     chmod 600 ~/.ssh/id_rsa && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts &&  \
     git clone git@github.com:N33Qu/pawcho6.git clonedRepo
