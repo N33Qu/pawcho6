@@ -5,15 +5,17 @@ ARG VERSION
 ADD ./alpine-minirootfs-3.17.3-aarch64.tar /
 RUN apk update && apk upgrade
 RUN apk add --no-cache npm nodejs openssh-client git
+
+RUN mkdir -p /clonedRepo
 RUN --mount=type=secret,id=ghlab_access.pub \
     mkdir -p ~/.ssh && \
     cp /run/secrets/ghlab_access.pub ~/.ssh/id_rsa && \
     chmod 600 ~/.ssh/id_rsa && \
-    ssh-keyscan github.com >> ~/.ssh/known_hosts
+    ssh-keyscan github.com >> ~/.ssh/known_hosts &&  \
+    git clone git@github.com:N33Qu/pawcho6.git clonedRepo
 
-RUN mkdir -p /clonedRepo
+
 RUN npx create-react-app react_app_lab6
-RUN --mount=type=ssh git clone git@github.com:N33Qu/pawcho6.git clonedRepo
 
 RUN mv /clonedRepo/App.js /reactAppLab6/src/App.js
 
