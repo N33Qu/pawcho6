@@ -3,16 +3,21 @@ FROM scratch AS build
 ARG VERSION
 
 ADD ./alpine-minirootfs-3.17.3-aarch64.tar /
-RUN apk update && apk upgrade && apk add mpm nodejs openssh-client git
-RUN mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+RUN apk update && apk upgrade
+RUN apk add --no-cache npm nodejs openssh-client git
+RUN --mount=type=secret,id=ghlab_access.pub \
+    mkdir -p ~/.ssh && \
+    cp /run/secrets/ghlab_access.pub ~/.ssh/id_rsa && \
+    chmod 600 ~/.ssh/id_rsa && \
+    ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 RUN mkdir -p /clonedRepo
-RUN npx create-react-app reactAppLab6
+RUN npx create-react-app react_app_lab6
 RUN --mount=type=ssh git clone git@github.com:N33Qu/pawcho6.git clonedRepo
 
 RUN mv /clonedRepo/App.js /reactAppLab6/src/App.js
 
-WORKDIR reactAppLab6
+WORKDIR react_app_lab6
 RUN npm install
 RUN npm run build
 
@@ -32,8 +37,8 @@ LABEL org.opencontainers.image.licenses=""
 
 COPY --from=build /reactAppLab6/build/. /var/www/html
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build clonedRepo/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build clonedRepo/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 
 HEALTHCHECK --interval=10s --timeout=1s \
