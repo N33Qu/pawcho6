@@ -1,0 +1,16 @@
+{
+  "name": "cho_lab5",
+  "version": "1.0.0",
+  "description": "Prosta aplikacja serwująca informacje o serwerze",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./src/app.js"
+  },
+  "author": "Twój Autor",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {}
+}
