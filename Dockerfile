@@ -17,7 +17,7 @@ RUN --mount=type=secret,id=ghlab_access.pub \
 
 RUN npx create-react-app react_app_lab6
 
-RUN mv /clonedRepo/App.js /reactAppLab6/src/App.js
+RUN mv /clonedRepo/src/App.js /react_app_lab6/src/App.js
 
 WORKDIR react_app_lab6
 RUN npm install
