@@ -37,7 +37,7 @@ LABEL org.opencontainers.image.source=""
 LABEL org.opencontainers.image.authors="N33Qu@lab6.org"
 LABEL org.opencontainers.image.licenses=""
 
-COPY --from=build /reactAppLab6/build/. /var/www/html
+COPY --from=build /react_app_lab6/build/. /var/www/html
 
 COPY --from=build clonedRepo/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build clonedRepo/nginx.conf /etc/nginx/nginx.conf
