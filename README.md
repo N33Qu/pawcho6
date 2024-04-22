@@ -140,4 +140,5 @@ docker ps -a
 
 Efekt działania aplikacji na nginx
 
-![Zrzut ekranowy strony uruchomionej na nginx](img%2Fpage.png)!
+![image](https://github.com/N33Qu/pawcho6/assets/116431498/3ffed679-c1af-478e-a076-c89514afa96f)
+
